@@ -13,7 +13,7 @@ class CategoryProductController extends Controller
      */
     public function showProducts($title, $id)
     {
-        $products = $this->marketService->getCategoryProduct($id);
+        $products = $this->marketService->getCategoryProducts($id);
 
         return view('categories.products.show')
             ->with([
