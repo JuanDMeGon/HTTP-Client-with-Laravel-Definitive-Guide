@@ -47,7 +47,9 @@ class MarketService
      */
     public function checkIfErrorResponse($response)
     {
-
+        if (isset($response->error)) {
+            throw new \Exception("Something failed: {$response->error}");
+        }
     }
 
     /**
