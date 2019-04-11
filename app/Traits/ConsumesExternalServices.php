@@ -29,7 +29,7 @@ trait ConsumesExternalServices
         $response = $response->getBody()->getContents();
 
         if (method_exists($this, 'decodeResponse')) {
-            $this->decodeResponse($response);
+            $response = $this->decodeResponse($response);
         }
 
         if (method_exists($this, 'checkIfErrorResponse')) {
