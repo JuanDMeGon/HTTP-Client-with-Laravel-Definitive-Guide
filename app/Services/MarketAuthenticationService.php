@@ -47,4 +47,21 @@ class MarketAuthenticationService
         $this->passwordClientId = config('services.market.password_client_id');
         $this->passwordClientSecret = config('services.market.password_client_secret');
     }
+
+    /**
+     * Obtains an access token associated with the client
+     * @return stdClass
+     */
+    public function getClientCredentialsToken()
+    {
+        $formParams = [
+            'grant_type' => 'client_credentials',
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
+        ];
+
+        $tokenData = $this->makeRequest('POST', 'oauth/token', [], $formParams);
+
+        return "{$tokenData->token_type} {$tokenData->access_token}";
+    }
 }
