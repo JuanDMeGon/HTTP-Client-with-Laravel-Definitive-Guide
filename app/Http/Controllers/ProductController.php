@@ -38,9 +38,17 @@ class ProductController extends Controller
      * Enable to purchase a products form the API
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function purchaseProduct()
+    public function purchaseProduct(Request $request, $title, $id)
     {
+        $this->marketService->purchaseProduct($id, $request->user()->service_id, 1);
 
+        return redirect()
+            ->route('products.show',
+                [
+                    'title' => $title,
+                    'id' => $id,
+                ])
+            ->with('succes', ['Product purchased']);
     }
 
     /**
