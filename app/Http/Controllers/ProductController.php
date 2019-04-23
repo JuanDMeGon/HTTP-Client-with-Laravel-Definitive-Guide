@@ -78,6 +78,8 @@ class ProductController extends Controller
 
         $this->marketService->setProductCategory($productData->identifier, $request->category);
 
+        $this->marketService->updateProduct($request->user()->service_id, $productData->identifier, ['situation' => 'available']);
+
         return redirect()
             ->route('products.show',
                 [
