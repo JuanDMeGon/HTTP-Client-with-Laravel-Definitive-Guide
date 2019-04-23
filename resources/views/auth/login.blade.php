@@ -57,7 +57,7 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                <a href="#" class="btn btn-success">
+                                <a href="{{$authorizationUrl}}" class="btn btn-success">
                                     Connect with API
                                 </a>
 

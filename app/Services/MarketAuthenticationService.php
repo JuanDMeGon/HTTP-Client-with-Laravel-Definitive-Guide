@@ -71,6 +71,10 @@ class MarketAuthenticationService
         return $tokenData->access_token;
     }
 
+    /**
+     * Generate the URL to obtain users authorization
+     * @return string
+     */
     public function resolveAuthorizationUrl()
     {
         $query = http_build_query([
