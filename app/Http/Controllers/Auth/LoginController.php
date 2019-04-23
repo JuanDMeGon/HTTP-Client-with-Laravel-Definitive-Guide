@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Services\MarketService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Exception\ClientException;
 use App\Services\MarketAuthenticationService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -97,13 +99,20 @@ class LoginController extends Controller
             $this->loginUser($user, $request->has('remember'));
 
             return redirect()->intended('home');
-        } catch (\Exception $e) {
-            // If the login attempt was unsuccessful we will increment the number of attempts
-            // to login and redirect the user back to the login form. Of course, when this
-            // user surpasses their maximum number of attempts they will get locked out.
-            $this->incrementLoginAttempts($request);
+        } catch (ClientException $e) {
+            $message = $e->getResponse()->getBody();
 
-            return $this->sendFailedLoginResponse($request);
+            if (Str::contains($message, 'invalid_credentials')) {
+                // If the login attempt was unsuccessful we will increment the number of attempts
+                // to login and redirect the user back to the login form. Of course, when this
+                // user surpasses their maximum number of attempts they will get locked out.
+                $this->incrementLoginAttempts($request);
+
+                return $this->sendFailedLoginResponse($request);
+            }
+
+            throw $e;
+
         }
 
 
