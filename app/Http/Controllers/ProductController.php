@@ -61,8 +61,27 @@ class ProductController extends Controller
      * Create the product on the API
      * @return \Illuminate\Http\Response
      */
-    public function publishProduct()
+    public function publishProduct(Request $request)
     {
+        $rules = [
+            'title' => 'required',
+            'details' => 'required',
+            'stock' => 'required|min:1',
+            'picture' => 'required|image',
+            'category' => 'required',
+        ];
 
+        $productData = $this->validate($request, $rules);
+        $productData['picture'] = fopen($request->picture->path(), 'r');
+
+        $productData = $this->marketService->publishProduct($request->user()->service_id, $productData);
+
+        return redirect()
+            ->route('products.show',
+                [
+                    'title' => $productData->title,
+                    'id' => $productData->identifier,
+                ])
+            ->with('succes', ['Product created successufully']);
     }
 }

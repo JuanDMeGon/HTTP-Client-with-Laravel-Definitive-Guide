@@ -50,7 +50,7 @@
                             <label for="category" class="col-md-4 col-form-label text-md-right">Category</label>
 
                             <div class="col-md-6">
-                                <select class="custom-select">
+                                <select name="category" class="custom-select">
                                     <option selected>Choose...</option>
                                     @foreach($categories as $category)
                                     <option value="{{$category->identifier}}">{{$category->title}}</option>
