@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Services\MarketService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Services\MarketAuthenticationService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -79,9 +80,9 @@ class LoginController extends Controller
 
             $user = $this->registerOrUpdateUser($userData, $tokenData);
 
-            dd($user);
+            $this->loginUser($user);
 
-            return;
+            return redirect()->intended('home');
         }
 
         return redirect()
@@ -106,5 +107,16 @@ class LoginController extends Controller
                 'token_expires_at' => $tokenData->token_expires_at,
             ]
         );
+    }
+
+    /**
+     * Create a user session in the HTTP CLient
+     * @return void
+     */
+    public function loginUser(User $user, $remember = true)
+    {
+        Auth::login($user, $remember);
+
+        session()->regenerate();
     }
 }
