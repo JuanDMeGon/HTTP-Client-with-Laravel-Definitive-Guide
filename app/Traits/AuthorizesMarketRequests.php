@@ -25,6 +25,10 @@ trait AuthorizesMarketRequests
     {
         $authenticationService = resolve(MarketAuthenticationService::class);
 
+        if (auth()->user()) {
+            return $authenticationService->getAuthenticatedUserToken();
+        }
+
         return $authenticationService->getClientCredentialsToken();
     }
 }

@@ -131,6 +131,17 @@ class MarketAuthenticationService
     }
 
     /**
+     * Obtains an access token from the current user
+     * @return string
+     */
+    public function getAuthenticatedUserToken()
+    {
+        $user = auth()->user();
+
+        return $user->access_token;
+    }
+
+    /**
      * Stores a valid token with some attributes
      * @return void
      */
