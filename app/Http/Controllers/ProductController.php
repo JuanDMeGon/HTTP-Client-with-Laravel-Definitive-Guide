@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(MarketService $marketService)
+    {
+        $this->middleware('auth')->except(['showProduct']);
+
+        parent::__construct($marketService);
+    }
+
+    /**
      * Show the details of a product.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -19,5 +31,32 @@ class ProductController extends Controller
             ->with([
                 'product' => $product,
             ]);
+    }
+
+    /**
+     * Enable to purchase a products form the API
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function purchaseProduct()
+    {
+
+    }
+
+    /**
+     * Show the form to create a product on the API
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function showPublishProductForm()
+    {
+
+    }
+
+    /**
+     * Create the product on the API
+     * @return \Illuminate\Http\Response
+     */
+    public function publishProduct()
+    {
+
     }
 }
