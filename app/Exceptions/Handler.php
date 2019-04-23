@@ -82,8 +82,7 @@ class Handler extends ExceptionHandler
                 abort(500, 'Error authenticating the request. Try again later.');
 
             default:
-                # code...
-                break;
+                return redirect()->back()->withErrors(['message' => $errorMessage]);
         }
     }
 }
