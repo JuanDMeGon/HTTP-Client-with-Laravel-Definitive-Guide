@@ -56,6 +56,18 @@ class MarketService
     }
 
     /**
+     * Associate a product to the category
+     * @return stdClass
+     */
+    public function setProductCategory($productId, $categoryId)
+    {
+        return $this->makeRequest(
+            'PUT',
+            "products/{$productId}/categories/{$categoryId}"
+        );
+    }
+
+    /**
      * Obtains the list of categories from the API
      * @return stdClass
      */
