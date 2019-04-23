@@ -11,7 +11,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <a href="#" class="btn btn-success btn-lh">Purchase</a>
+                    <a href="{{route('products.purchase', ['title' => $product->title, 'id' => $product->identifier])}}" class="btn btn-success btn-lh">Purchase</a>
                 </div>
             </div>
             <div class="row">

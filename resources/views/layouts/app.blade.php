@@ -33,7 +33,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="btn btn-success" href="{{route('products.publish')}}">Publish</a>
+                        </li>
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('purchases')}}">Purchases</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('products')}}">Products</a>
+                            </li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
