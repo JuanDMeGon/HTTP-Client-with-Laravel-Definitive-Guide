@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\MarketAuthenticationService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -65,8 +66,18 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function authorization()
+    public function authorization(Request $request)
     {
+        if ($request->has('code')) {
+            $tokenData = $this->marketAuthenticationService->getCodeToken($request->code);
 
+            dd($tokenData);
+
+            return;
+        }
+
+        return redirect()
+            ->route('login')
+            ->withErrors(['You canecelled the authorization process']);
     }
 }

@@ -88,6 +88,27 @@ class MarketAuthenticationService
     }
 
     /**
+     * Obtains an access token from a given code
+     * @return stdClass
+     */
+    public function getCodeToken($code)
+    {
+        $formParams = [
+            'grant_type' => 'authorization_code',
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
+            'redirect_uri' => route('authorization'),
+            'code' => $code,
+        ];
+
+        $tokenData = $this->makeRequest('POST', 'oauth/token', [], $formParams);
+
+        $this->storeValidToken($tokenData, 'authorization_code');
+
+        return $tokenData;
+    }
+
+    /**
      * Stores a valid token with some attributes
      * @return void
      */
